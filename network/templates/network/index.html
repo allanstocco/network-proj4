@@ -1,5 +1,92 @@
 {% extends "network/layout.html" %}
-
+{% load static %}
 {% block body %}
-    TODO
+<div>
+    <div class="title">
+        <div>
+            <h4>Home</h4>
+        </div>
+    </div>
+    <div class="content">
+        <form class="home-form" action="{% url 'posts' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <textarea class="h-f" name="textpost" id="text-input" rows="2" placeholder="What's happening?"></textarea>
+            <div style="text-align: right;">
+                <div class="image-upload">
+                    <label for="file-input">
+                        <img src="https://icons.iconarchive.com/icons/uiconstock/dynamic-flat-android/48/images-icon.png"
+                            alt="media">
+                    </label>
+                    <input name="upload" id="file-input" type="file">
+                </div>
+                <button class="tweet-button" type="submit">Post</button>
+            </div>
+        </form>
+    </div>
+    {% for post in page.object_list %}
+    <div id="content" class="content">
+        <div class="container3">
+            <div class="post">
+                <div class="post-user">
+                    <a href="{% url 'user_profile' user=post.user.id %}">
+                        <strong>
+                            {{post.user}}
+                        </strong>
+                    </a>
+                    <small style="color:rgb(110, 118, 125);">@{{post.user.email}} . {{post.time}}
+                        {% if post.user == request.user %}
+                        <span class="btn-post" id="{{post.id}}" data-post="{{post.field}}">Edit</span>
+                        <span id="btn-cancel-{{post.field}}" style="display: none; cursor: pointer;">Cancel</span>
+                        {% endif %}
+                    </small>
+                </div>
+                <div class="post-field">
+                    <div id="{{post.field}}">{{post.field}}</div>
+                    <textarea class="h-f" style="display: none;" id="post-edit-{{post.field}}" rows="2"></textarea>
+                    <div class="post-image">
+                        {% if post.get_picture_upload is not empty %}
+                        <img src="{{post.get_picture_upload}}" alt="">
+                        {% else %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="post-likes">
+                    {% if not request.user in post.likes.all %}
+                    <img class="fa" src="/media/001-like.png" data-id="{{post.id}}" data-status="on">
+                    {% else %}
+                    <img class="fa" src="/media/like (1).png" data-id="{{post.id}}" data-status="off">
+                    {% endif %}
+
+                    {% if post.likes.count > 0 %}
+                    <span class="likeNum" id="counting-{{post.id}}">{{post.likes.count}}
+                        {% else %}
+                        <span class="likeNum" id="counting-{{post.id}}">
+                            {% endif %}
+                            <div class="dropdownLikes">
+                                <ul>
+                                    <li>{{post.likes.all}}</li>
+                                </ul>
+                            </div>
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <div>
+        <div>
+            <div>
+                {% if page.has_previous %}
+                <a href="{% url 'index' %}?page={{page.previous_page_number}}">Previous Page</a>
+                {% endif %}
+            </div>
+            <div>
+                {% if page.has_next %}
+                <a href="{% url 'index' %}?page={{page.next_page_number}}">Next Page</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

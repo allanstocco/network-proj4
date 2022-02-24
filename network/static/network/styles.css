@@ -1,0 +1,396 @@
+body,
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: black;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.bottle {
+    width: 100%;
+    height: 100%;
+}
+
+.leftpane {
+    position: fixed;
+    text-align: left;
+    width: 25%;
+    height: 100%;
+    float: left;
+    background-color: black;
+    border-collapse: collapse;
+}
+
+.signed-user-box {
+    color: rgb(217, 217, 217);
+    margin-top: 20%;
+    font-family: Helvetica, Arial, sans-serif;
+    text-align: center;
+}
+
+.dropdown {
+    display: none;
+}
+
+.signed-user-box:hover .dropdown {
+    display: block;
+}
+
+.user-name {
+    font-weight: bolder;
+    font-size: x-large;
+}
+
+.user-email {
+    margin-left: 10%;
+    margin-top: -3%;
+}
+
+.middlepane {
+    margin-left: 25%;
+    width: 50%;
+    height: 100%;
+    background-color: black;
+    border-collapse: collapse;
+}
+
+h2 {
+    color: rgb(217, 217, 217);
+    padding: 5px;
+}
+
+h4 {
+    color: rgb(217, 217, 217);
+    padding: 5px;
+}
+
+
+/* form-index --------------- */
+
+.image-upload {
+    display: inline;
+}
+
+.image-upload>input {
+    display: none;
+}
+
+label>img {
+    cursor: pointer;
+}
+
+.h-f {
+    color: rgb(217, 217, 217);
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.2em;
+    background-color: black;
+    border: none;
+    width: 100%;
+    padding: 15px;
+    border: solid 1px black;
+    margin: 0 0 20px;
+}
+
+.h-f:focus {
+    outline: none !important;
+    border-color: #2f3944;
+    box-shadow: 0 0 10px #719ECE;
+}
+
+.tweet-button {
+    background: #0066A2;
+    color: rgb(217, 217, 217);
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0);
+    border-radius: 9999px;
+    border-width: 1px;
+    height: 40px;
+    width: 60px;
+    font: bold 15px arial, sans-serif;
+    text-shadow: none;
+}
+
+.tweet-button:hover {}
+
+
+/* menu leftpane config --------*/
+
+.a-list {
+    padding: 12px;
+    font-size: 18px;
+}
+
+div a:link,
+a:visited {
+    color: rgb(217, 217, 217);
+    font-family: Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    text-align: none;
+}
+
+.home:hover,
+.profile:hover,
+.following:hover,
+.liked:hover {
+    background-color: rgba(128, 128, 128, 0.2);
+    font-weight: bolder;
+    transition-duration: 0.05s;
+    border-radius: 9999px;
+    border-width: inherit;
+    opacity: 5;
+}
+
+.icon {
+    position: relative;
+    width: 185px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* index  */
+
+.title {
+    padding: 5px;
+    border: 0.2px solid rgb(47, 51, 54);
+}
+
+.content {
+    padding: 5px;
+    border: 0.2px solid rgb(47, 51, 54);
+}
+
+
+/* index-post */
+
+.post {}
+
+.post-user {
+    padding-left: 5px;
+    color: rgb(217, 217, 217);
+}
+
+.post-field {
+    padding-left: 5px;
+    color: rgb(217, 217, 217);
+}
+
+.btn-post {
+    cursor: pointer;
+}
+
+.post-image>img {
+    position: relative;
+    margin-top: 12px;
+    left: 75px;
+    width: 500px;
+    height: 500px;
+    border: 0.02px solid rgb(47, 51, 54);
+    border-radius: 20px;
+}
+
+
+/*  profile page  */
+
+.container1 {
+    height: 224px;
+    border: 0.2px solid rgb(47, 51, 54);
+}
+
+.picture-background-profile {
+    height: 244px;
+    width: 100%;
+    border: 0.00px solid rgb(0, 0, 0);
+}
+
+.btn-profile {
+    background-color: black;
+    border: none;
+    color: rgb(217, 217, 217);
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bolder;
+    margin: 4px 2px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 9999px;
+}
+
+.btn-profile:hover {
+    background-color: rgba(128, 128, 128, 0.2);
+    font-weight: bolder;
+    transition-duration: 0.2s;
+    border-radius: 9999px;
+    border-width: inherit;
+    opacity: 5;
+}
+
+.container2 {
+    border: 0.2px solid rgb(47, 51, 54);
+}
+
+.container2in {
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: end;
+    align-items: flex-end;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: horizontal;
+    flex-direction: row;
+}
+
+.container2inP {
+    display: inline;
+}
+
+.container2inPa {
+    display: inline;
+    text-align: right;
+}
+
+.picture-user-profile {
+    margin-left: 10px;
+    width: 25%;
+    min-width: 48px;
+    margin-top: -13%;
+    outline-style: none;
+    background-color: rgb(0, 0, 0);
+    border-width: 4px;
+    overflow: hidden;
+    border-style: solid;
+    border-radius: 9999px;
+}
+
+.container3 {
+    margin-left: 15px;
+    margin-top: 4px;
+    margin-bottom: 12px;
+}
+
+.container3in1 {
+    outline-style: none;
+    flex-shrink: 1;
+    max-width: 100%;
+}
+
+.container3in2 {
+    color: rgb(110, 118, 125);
+    margin-top: -12px;
+    margin-bottom: 30px;
+    max-width: 100%;
+}
+
+.container3in2>p {
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+
+.post-likes {
+    margin-top: 18px;
+    max-width: 100%;
+}
+
+.fa {
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+.likeNum {
+    font-size: small;
+    font-weight: bolder;
+    color: rgb(217, 217, 217);
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownLikes {
+    display: none;
+    position: absolute;
+    background-color: #141414;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.likeNum:hover .dropdownLikes {
+    display: block;
+    transition-duration: 2s;
+    opacity: 5;
+}
+
+.followingBox {
+    cursor: pointer;
+    color: whitesmoke;
+    text-align: center;
+    width: 50%;
+    float: left;
+    padding: 20px;
+    border: 0.2px solid rgb(47, 51, 54);
+}
+
+.followersBox {
+    cursor: pointer;
+    color: whitesmoke;
+    text-align: center;
+    width: 50%;
+    float: right;
+    padding: 20px;
+    border: 0.2px solid rgb(47, 51, 54);
+}
+
+.followingBox:hover {
+    background-color: dimgrey;
+    opacity: 10;
+    transition-duration: 1s;
+}
+
+.followersBox:hover {
+    background-color: dimgrey;
+    opacity: 10;
+    transition-duration: 1s;
+}
+
+.userPhoto {
+    margin-top: 50px;
+}
+
+.userDescription {
+    color: rgb(217, 217, 217);
+    margin-left: 10px;
+    margin-top: 50px;
+}
+
+.btn-following {
+    display: inline-flex;
+}
+
+.btn-followers {
+    display: none;
+}
+
+.containerFollows {
+    cursor: pointer;
+    color: whitesmoke;
+    text-align: center;
+    padding: 10px;
+    border: 0.2px solid rgb(47, 51, 54);
+}
+
+.containerFollows:hover {
+    background-color: dimgrey;
+    opacity: 10;
+    transition-duration: 1s;
+}
+
+#followingPosts {
+    display: none;
+}

@@ -1,0 +1,59 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+{% if likes.count == 0 %}
+<div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h4>You have not liked any post yet!</h4>
+</div>
+{% endif %}
+{% for liked in likes %}
+
+<div id="content" class="content">
+    <div class="container3">
+        <div class="post">
+            <div class="post-user">
+                <a href="{% url 'user_profile' user=liked.user.id %}">
+                    <strong>
+                        {{liked.user}}
+                    </strong>
+                </a>
+                <small style="color:rgb(110, 118, 125);">@{{liked.user.email}} . {{liked.time}}</small>
+            </div>
+            <div class="post-field">
+                <div>{{liked.field}}</div>
+                <div class="post-image">
+                    {% if liked.get_picture_upload is not empty %}
+                    <img src="{{liked.get_picture_upload}}" alt="">
+                    {% else %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="post-likes">
+                {% if not request.user in liked.likes.all %}
+                <img class="fa" src="/media/001-like.png" data-id="{{liked.id}}" data-status="on">
+                {% else %}
+                <img class="fa" src="/media/like (1).png" data-id="{{liked.id}}" data-status="off">
+                {% endif %}
+
+                {% if liked.likes.count > 0 %}
+                <span class="likeNum" id="counting-{{liked.id}}">{{liked.likes.count}}
+                    {% endif %}
+                    <div class="dropdownLikes">
+                        <ul>
+                            <li>{{liked.likes.all}}</li>
+                        </ul>
+                    </div>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+
+{% endblock %}

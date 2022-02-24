@@ -1,0 +1,171 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+<div>
+    <div class="title">
+        <h4>{{user}}</h4>
+    </div>
+    {% if user.get_picture_upload_background is None %}
+    <div class="container1">
+
+    </div>
+    {% else %}
+    <div class="container1">
+        <img src="{{user.get_picture_upload_background}}" alt="" style="width: 100%; height: 244px;">
+    </div>
+    {% endif %}
+    <div class="container2">
+        <div class="container2in">
+            <div class="container2inP">
+                <img src="{{user.get_picture_upload_user}}" style="width: 164px; height: 164px;"
+                    class="picture-user-profile"></img>
+            </div>
+            {% if request.get_full_path == url %}
+            <button type="button" class="btn-profile" data-toggle="modal" data-target="#exampleModal"
+                data-whatever="@mdo">Edit Profile
+            </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="{% url 'profile' %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="" class="col-form-label">Name:</label>
+                                    <input type="text" class="form-control" name="userName" value="{{user.name}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="" class="col-form-label">City:</label>
+                                    <input type="text" class="form-control" name="userCity" value="{{user.city}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="" class="col-form-label">Date of Birth:</label>
+                                    <input type="date" class="form-control" name="userBirth">
+                                </div>
+                                <div class="form-group">
+                                    <label for="" class="col-form-label">User Image:</label>
+                                    <input type="file" class="form-control" name="userImage" value="user.userImage">
+                                </div>
+                                <div class="form-group">
+                                    <label for="" class="col-form-label">Background:</label>
+                                    <input type="file" class="form-control" name="background" value="user.background">
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if request.user != user %}
+            
+            <button type="button" class="btn-profile" id="btn-follow" data-profile="{{user.username}}">
+                {% if request.user in follow %}
+                Unfollow
+                {% else %}
+                Follow
+                {% endif %}
+            </button>
+            {% endif %}
+        </div>
+        <div class="container3">
+            <div class="container3in1">
+                <div>
+                    {% if user.name is None %}
+                    <h4>Start setting your Profile!</h4>
+                    {% else %}
+                    <h4>{{user.name}}</h4>
+                    {% endif %}
+                </div>
+                <div class="container3in2">
+                    <small>@{{user.email}}</small>
+                </div>
+                <div class="container3in2">
+                    {% if user.birth is None %}
+                    <p>Make your profile!</p>
+                    {% else %}
+                    <p>City: {{user.city}}</p>
+                    <p>Birth: {{user.birth}}</p>
+                    <p>Joined Since: {{user.date_joined}}</p>
+                    {% endif %}
+                </div>
+                <div class="container3in2">
+                    <a id="countFollowing" href=""><strong>{{following.count}}</strong> Following</a>
+                    <a id="countFollowers" href=""><strong>{{follow.count}}</strong> Followers</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% for posts in page.object_list %}
+    <div class="content">
+        <div class="container3">
+            <div class="post">
+                <div class="post-user">
+                    <strong>
+                        {{posts.user}}
+                    </strong>
+                    <small style="color:rgb(110, 118, 125);">@{{posts.user.email}} . {{posts.time}}
+                        {% if posts.user == request.user %}
+                        <span class="btn-post" id="{{posts.id}}" data-post="{{posts.field}}">Edit</span>
+                        <span id="btn-cancel-{{posts.field}}" style="display: none; cursor: pointer;">Cancel</span>
+                        {% endif %}
+                    </small>
+                </div>
+                <div class="post-field">
+                    <div id="{{posts.field}}">{{posts.field}}</div>
+                    <textarea class="h-f" style="display: none;" id="post-edit-{{posts.field}}" rows="2"></textarea>
+                    <div class="post-image">
+                        {% if posts.get_picture_upload is not empty %}
+                        <img src="{{posts.get_picture_upload}}" alt="">
+                        {% else %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="post-likes">
+                    {% if not request.user in posts.likes.all %}
+                    <img class="fa" src="/media/001-like.png" data-id="{{posts.id}}" data-status="on">
+                    {% else %}
+                    <img class="fa" src="/media/like (1).png" data-id="{{posts.id}}" data-status="off">
+                    {% endif %}
+
+                    {% if posts.likes.count > 0 %}
+                    <span class="likeNum" id="counting-{{posts.id}}">{{posts.likes.count}}
+                        {% endif %}
+                        <div class="dropdownLikes">
+                            <ul>
+                                <li>{{posts.likes.all}}</li>
+                            </ul>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div>
+    <div>
+        {% if page.has_previous %}
+        <a href="{% url 'user_profile' %}?page={{page.previous_page_number}}">Previous Page</a>
+        {% endif %}
+        {% if page.has_next %}
+        <a href="{% url 'user_profile' %}?page={{page.next_page_number}}">Next Page</a>
+        {% endif %}
+    </div>
+</div>
+</div>
+
+</div>
+{% endblock %}

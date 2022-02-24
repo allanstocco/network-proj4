@@ -1,0 +1,101 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+<div>
+    <div>
+        <div class="title">
+            <h4>{{user}}</h4>
+        </div>
+    </div>
+    <div class="containerFollows" onclick="followingPosts()">Following Posts</div>
+    <div class="">
+        <span class="followingBox" onclick="followingBox()">Following</span>
+        <span class="followersBox" onclick="followerBox()">Follower</span>
+    </div>
+
+    {% for user in following %}
+    <a style="color: rgba(128, 128, 128, 0.2);" href="{% url 'user_profile' user=user.id %}">
+        <div class="btn-following">
+            <div class="userPhoto">
+                <img src="{{user.get_picture_upload_user}}" style="width: 164px; height: 164px;"
+                    class="picture-user-profile"></img>
+            </div>
+            <div class="userDescription">
+                <h5>{{user.name}}</h5>
+                <small>@{{user.email}}</small>
+                <br><span>City: {{user.city}}</span>
+                <br><span>Birth: {{user.birth}}</span>
+                <br><span>Joined Since: {{user.date_joined}}</span>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+    {% for user in followers %}
+    <a style="color: rgba(128, 128, 128, 0.2);" href="{% url 'user_profile' user=user.id %}">
+        <div class="btn-followers">
+            <div class="userPhoto">
+                <img src="{{user.get_picture_upload_user}}" style="width: 164px; height: 164px;"
+                    class="picture-user-profile"></img>
+            </div>
+            <div class="userDescription">
+                <h5>{{user.name}}</h5>
+                <small>@{{user.email}}</small>
+                <br><span>City: {{user.city}}</span>
+                <br><span>Birth: {{user.birth}}</span>
+                <br><span>Joined Since: {{user.date_joined}}</span>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% for posts in page.object_list %}
+<div class="content" id="followingPosts">
+    <div class="container3">
+        <div class="post">
+            <div class="post-user">
+                <a href="{% url 'user_profile' user=user.id %}">
+                    <strong>
+                        {{posts.user}}
+                    </strong>
+                </a>
+                <small style="color:rgb(110, 118, 125);">@{{posts.email}} . {{posts.time}}
+                    {% if posts.user == request.user %}
+                    <span class="btn-post" id="{{posts.id}}" data-post="{{posts.field}}">Edit</span>
+                    <span id="btn-cancel-{{posts.field}}" style="display: none; cursor: pointer;">Cancel</span>
+                    {% endif %}
+                </small>
+            </div>
+            <div class="post-field">
+                <div id="{{posts.field}}">{{posts.field}}</div>
+                <textarea class="h-f" style="display: none;" id="post-edit-{{posts.field}}" rows="2"></textarea>
+                <div class="post-image">
+                    {% if posts.get_picture_upload is not empty %}
+                    <img src="{{posts.get_picture_upload}}" alt="">
+                    {% else %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="post-likes">
+                {% if not request.user in posts.likes.all %}
+                <img class="fa" src="/media/001-like.png" data-id="{{posts.id}}" data-status="on">
+                {% else %}
+                <img class="fa" src="/media/like (1).png" data-id="{{posts.id}}" data-status="off">
+                {% endif %}
+
+                {% if posts.likes.count > 0 %}
+                <span class="likeNum" id="counting-{{posts.id}}">{{posts.likes.count}}
+                    {% endif %}
+                    <div class="dropdownLikes">
+                        <ul>
+                            <li>{{posts.likes.all}}</li>
+                        </ul>
+                    </div>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
